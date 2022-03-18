@@ -11,24 +11,24 @@ class QComboBox;
 class QGroupBox;
 class QLabel;
 class QWidget;
-class DzUnityAction;
+class DzPlaygroundsAction;
 
-class UnitTest_DzUnityDialog;
+class UnitTest_DzPlaygroundsDialog;
 
 #include "dzbridge.h"
 
-class DzUnityDialog : public DZ_BRIDGE_NAMESPACE::DzBridgeDialog{
-	friend DzUnityAction;
+class DzPlaygroundsDialog : public DZ_BRIDGE_NAMESPACE::DzBridgeDialog{
+	friend DzPlaygroundsAction;
 	Q_OBJECT
 	Q_PROPERTY(QWidget* assetsFolderEdit READ getAssetsFolderEdit)
 public:
 	Q_INVOKABLE QLineEdit* getAssetsFolderEdit() { return assetsFolderEdit; }
 
 	/** Constructor **/
-	 DzUnityDialog(QWidget *parent=nullptr);
+	 DzPlaygroundsDialog(QWidget *parent=nullptr);
 
 	/** Destructor **/
-	virtual ~DzUnityDialog() {}
+	virtual ~DzPlaygroundsDialog() {}
 
 	Q_INVOKABLE void resetToDefaults();
 
@@ -50,6 +50,6 @@ protected:
 	QCheckBox* installUnityFilesCheckBox;
 
 #ifdef UNITTEST_DZBRIDGE
-	friend class UnitTest_DzUnityDialog;
+	friend class UnitTest_DzPlaygroundsDialog;
 #endif
 };

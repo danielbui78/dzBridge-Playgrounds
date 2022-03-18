@@ -2,8 +2,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(DZ_PLUGIN_TGT_NAME dzunitybridge)
-set(DZ_PLUGIN_PROJECT_NAME "DzBridge-Unity")
+set(DZ_PLUGIN_TGT_NAME dzbridge_playgrounds)
+set(DZ_PLUGIN_PROJECT_NAME "DzBridge-Playgrounds")
 
 include_directories(${COMMON_LIB_INCLUDE_DIR})
 
@@ -15,13 +15,12 @@ endif()
 
 if(WIN32)
 	set(OS_SOURCES
-		DzUnityBridge.rc
 	)
 elseif(APPLE)
 	set(OS_SOURCES "")
 endif()
 
-set(DPC_IMAGES_CPP "${CMAKE_CURRENT_BINARY_DIR}/DzUnityIcon.cpp" )
+set(DPC_IMAGES_CPP "${CMAKE_CURRENT_BINARY_DIR}/DzBridgeIcon.cpp" )
 set(DPC_SRC_IMAGES
 	Resources/Images/icon.png
 )
@@ -34,10 +33,10 @@ add_custom_command(OUTPUT ${DPC_IMAGES_CPP}
 set_property(SOURCE ${DPC_IMAGES_CPP} PROPERTY SKIP_AUTOMOC ON)
 
 add_library( ${DZ_PLUGIN_TGT_NAME} SHARED
-	DzUnityAction.cpp
-	DzUnityAction.h
-	DzUnityDialog.cpp
-	DzUnityDialog.h
+	DzPlaygroundsAction.cpp
+	DzPlaygroundsAction.h
+	DzPlaygroundsDialog.cpp
+	DzPlaygroundsDialog.h
 	pluginmain.cpp
 	version.h
 	Resources/resources.qrc

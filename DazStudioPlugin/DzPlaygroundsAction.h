@@ -5,17 +5,17 @@
 #include <QtCore/qfile.h>
 #include <QtCore/qtextstream.h>
 #include <DzBridgeAction.h>
-#include "DzUnityDialog.h"
+#include "DzPlaygroundsDialog.h"
 
-class UnitTest_DzUnityAction;
+class UnitTest_DzPlaygroundsAction;
 
 #include "dzbridge.h"
 
-class DzUnityAction : public DZ_BRIDGE_NAMESPACE::DzBridgeAction {
+class DzPlaygroundsAction : public DZ_BRIDGE_NAMESPACE::DzBridgeAction {
 	 Q_OBJECT
 	 Q_PROPERTY(bool InstallUnityFiles READ getInstallUnityFiles WRITE setInstallUnityFiles)
 public:
-	DzUnityAction();
+	DzPlaygroundsAction();
 
 	void setInstallUnityFiles(bool arg) { m_bInstallUnityFiles = arg; }
 	bool getInstallUnityFiles() { return m_bInstallUnityFiles; }
@@ -31,7 +31,7 @@ protected:
 	 QString readGuiRootFolder();
 
 #ifdef UNITTEST_DZBRIDGE
-	friend class UnitTest_DzUnityAction;
+	friend class UnitTest_DzPlaygroundsAction;
 #endif
 
 };

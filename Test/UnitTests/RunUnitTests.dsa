@@ -1,8 +1,8 @@
 // DAZ Studio version 4.16.0.3 filetype DAZ Script
 var includeDir_oFILE = new DzFile( getScriptFileName() );
 //var sIncludePath = includeDir_oFILE.path();
-var sIncludePath = "C:/GitHub/dzBridge-Unity/Test/UnitTests/"
-var sOutputPath = "C:/GitHub/dzBridge-Unity/Test/Results/";
+var sIncludePath = "C:/GitHub/dzBridge-Playgrounds/Test/UnitTests/"
+var sOutputPath = "C:/GitHub/dzBridge-Playgrounds/Test/Results/";
 
 /*
 obj = new UnitTest_DzBridgeScriptableAction();
@@ -30,15 +30,14 @@ print("Unit Test Results (DzBridgeSubdivisionDialog): " + result);
 obj.writeAllTestResults(sOutputPath);
 */
 
-obj = new UnitTest_DzUnityAction();
+obj = new UnitTest_DzPlaygroundsAction();
 result = false;
 result = obj.runUnitTests();
 print("Unit Test Results (DzBridgeUnityAction): " + result);
 obj.writeAllTestResults(sOutputPath);
 
-obj = new UnitTest_DzUnityDialog();
+obj = new UnitTest_DzPlaygroundsDialog();
 result = false;
 result = obj.runUnitTests();
 print("Unit Test Results (DzBridgeUnityDialog): " + result);
 obj.writeAllTestResults(sOutputPath);
-

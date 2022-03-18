@@ -1,7 +1,8 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-    <qresource prefix="/DazBridgeUnity">
-        <file alias="daztounity-hdrp.unitypackage">DazToUnity-HDRP.unitypackage</file>
+    <qresource prefix="/DazBridgePlaygrounds">
+        <file alias="daztoplaygrounds.unitypackage">DazToPlaygrounds.unitypackage</file>
+        <file alias="g8-tpose.duf">g8-tpose.duf</file>
     </qresource>
     <qresource prefix="/DazBridgeUnity/Images">
         <file alias="icon">Images/Icon.png</file>

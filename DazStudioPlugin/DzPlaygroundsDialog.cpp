@@ -25,7 +25,7 @@
 #include "dzskeleton.h"
 #include "qstandarditemmodel.h"
 
-#include "DzUnityDialog.h"
+#include "DzPlaygroundsDialog.h"
 #include "DzBridgeMorphSelectionDialog.h"
 #include "DzBridgeSubdivisionDialog.h"
 
@@ -34,12 +34,12 @@
 /*****************************
 Local definitions
 *****************************/
-#define DAZ_TO_UNITY_PLUGIN_NAME "DazToUnity"
+#define DAZ_BRIDGE_PLUGIN_NAME "DazToPlaygrounds"
 
 #include "dzbridge.h"
 
-DzUnityDialog::DzUnityDialog(QWidget* parent) :
-	 DzBridgeDialog(parent, DAZ_TO_UNITY_PLUGIN_NAME)
+DzPlaygroundsDialog::DzPlaygroundsDialog(QWidget* parent) :
+	 DzBridgeDialog(parent, DAZ_BRIDGE_PLUGIN_NAME)
 {
 	 projectEdit = nullptr;
 	 projectButton = nullptr;
@@ -47,7 +47,7 @@ DzUnityDialog::DzUnityDialog(QWidget* parent) :
 	 assetsFolderButton = nullptr;
 	 installUnityFilesCheckBox = nullptr;
 
-	 settings = new QSettings("Daz 3D", "DazToUnity");
+	 settings = new QSettings("Daz 3D", "DazToPlaygrounds");
 
 	 // Declarations
 	 int margin = style()->pixelMetric(DZ_PM_GeneralMargin);
@@ -56,7 +56,7 @@ DzUnityDialog::DzUnityDialog(QWidget* parent) :
 
 	 // Set the dialog title
 	 int revision = PLUGIN_REV % 1000;
-	 setWindowTitle(tr("DazToUnity Bridge v%1.%2 Pre-Release Build %3.%4").arg(PLUGIN_MAJOR).arg(PLUGIN_MINOR).arg(revision).arg(PLUGIN_BUILD));
+	 setWindowTitle(tr("DazToPlaygrounds Bridge v%1.%2 Pre-Release Build %3.%4").arg(PLUGIN_MAJOR).arg(PLUGIN_MINOR).arg(revision).arg(PLUGIN_BUILD));
 
 	 QStandardItemModel* model = qobject_cast<QStandardItemModel*>(assetTypeCombo->model());
 	 QStandardItem* item = nullptr;
@@ -78,7 +78,7 @@ DzUnityDialog::DzUnityDialog(QWidget* parent) :
 	 connect(assetsFolderButton, SIGNAL(released()), this, SLOT(HandleSelectAssetsFolderButton()));
 
 	 // Advanced Options
-	 installOrOverwriteUnityFilesLabel = new QLabel(tr("Install Unity Files"));
+	 installOrOverwriteUnityFilesLabel = new QLabel(tr("Install Unity Playgrounds Files"));
 	 installUnityFilesCheckBox = new QCheckBox("", this);
 	 connect(installUnityFilesCheckBox, SIGNAL(stateChanged(int)), this, SLOT(HandleInstallUnityFilesCheckBoxChange(int)));
 
@@ -107,7 +107,7 @@ DzUnityDialog::DzUnityDialog(QWidget* parent) :
 
 }
 
-bool DzUnityDialog::loadSavedSettings()
+bool DzPlaygroundsDialog::loadSavedSettings()
 {
 	DzBridgeDialog::loadSavedSettings();
 
@@ -119,18 +119,18 @@ bool DzUnityDialog::loadSavedSettings()
 	}
 	else
 	{
-		QString DefaultPath = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation) + QDir::separator() + "DazToUnity";
+		QString DefaultPath = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation) + QDir::separator() + "DazToPlaygrounds";
 		assetsFolderEdit->setText(DefaultPath);
 	}
 
 	return true;
 }
 
-void DzUnityDialog::resetToDefaults()
+void DzPlaygroundsDialog::resetToDefaults()
 {
 	DzBridgeDialog::resetToDefaults();
 
-	QString DefaultPath = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation) + QDir::separator() + "DazToUnity";
+	QString DefaultPath = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation) + QDir::separator() + "DazToPlaygrounds";
 	assetsFolderEdit->setText(DefaultPath);
 
 	DzNode* Selection = dzScene->getPrimarySelection();
@@ -155,7 +155,7 @@ void DzUnityDialog::resetToDefaults()
 
 }
 
-void DzUnityDialog::HandleAssetFolderChanged(const QString& directoryName)
+void DzPlaygroundsDialog::HandleAssetFolderChanged(const QString& directoryName)
 {
 	// DB (2021-05-15): Check for presence of Daz3D folder, and set installUnityFiles if not present
 	if (QDir(directoryName + QDir::separator() + "Daz3D").exists())
@@ -171,12 +171,12 @@ void DzUnityDialog::HandleAssetFolderChanged(const QString& directoryName)
 		settings->setValue("InstallUnityFiles", true);
 		installUnityFilesCheckBox->setChecked(true);
 		// rename label to show "Install"
-		installOrOverwriteUnityFilesLabel->setText(tr("Install Unity Files"));
+		installOrOverwriteUnityFilesLabel->setText(tr("Install Unity Playgrounds Files"));
 	}
 
 }
 
-void DzUnityDialog::HandleSelectAssetsFolderButton()
+void DzPlaygroundsDialog::HandleSelectAssetsFolderButton()
 {
 	 // DB (2021-05-15): prepopulate with existing folder string
 	 QString directoryName = "/home";
@@ -224,12 +224,12 @@ void DzUnityDialog::HandleSelectAssetsFolderButton()
     
 }
 
-void DzUnityDialog::HandleInstallUnityFilesCheckBoxChange(int state)
+void DzPlaygroundsDialog::HandleInstallUnityFilesCheckBoxChange(int state)
 {
 	 settings->setValue("InstallUnityFiles", state == Qt::Checked);
 }
 
-void DzUnityDialog::HandleAssetTypeComboChange(int state)
+void DzPlaygroundsDialog::HandleAssetTypeComboChange(int state)
 {
 	QString assetNameString = assetNameEdit->text();
 
@@ -281,4 +281,4 @@ void DzUnityDialog::HandleAssetTypeComboChange(int state)
 
 }
 
-#include "moc_DzUnityDialog.cpp"
+#include "moc_DzPlaygroundsDialog.cpp"

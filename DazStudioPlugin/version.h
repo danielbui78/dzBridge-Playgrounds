@@ -1,7 +1,7 @@
 #pragma once
 #include "dzversion.h"
 
-// Version number for dzBridge-Unity
+// Version number for dzBridge
 #define PLUGIN_MAJOR	2
 #define PLUGIN_MINOR	0
 #define PLUGIN_REV		1012

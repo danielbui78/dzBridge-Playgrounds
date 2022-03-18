@@ -7,9 +7,9 @@ set(COMMON_LIB_INCLUDE_DIR ${COMMON_LIB_INCLUDE_DIR} PARENT_SCOPE)
 include_directories(${COMMON_LIB_INCLUDE_DIR})
 
 set(QA_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/UnitTest_DzUnityAction.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/UnitTest_DzUnityAction.h
-	${CMAKE_CURRENT_SOURCE_DIR}/UnitTest_DzUnityDialog.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/UnitTest_DzUnityDialog.h
+	${CMAKE_CURRENT_SOURCE_DIR}/UnitTest_DzPlaygroundsAction.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/UnitTest_DzPlaygroundsAction.h
+	${CMAKE_CURRENT_SOURCE_DIR}/UnitTest_DzPlaygroundsDialog.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/UnitTest_DzPlaygroundsDialog.h
 )
 set(QA_SRCS ${QA_SRCS} PARENT_SCOPE)

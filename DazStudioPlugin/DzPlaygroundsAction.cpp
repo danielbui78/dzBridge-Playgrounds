@@ -25,9 +25,10 @@
 #include "dzfacetmesh.h"
 #include "dzfacegroup.h"
 #include "dzprogress.h"
+#include "dzcontentmgr.h"
 
-#include "DzUnityAction.h"
-#include "DzUnityDialog.h"
+#include "DzPlaygroundsAction.h"
+#include "DzPlaygroundsDialog.h"
 #include "DzBridgeMorphSelectionDialog.h"
 #include "DzBridgeSubdivisionDialog.h"
 
@@ -37,8 +38,8 @@
 
 #include "dzbridge.h"
 
-DzUnityAction::DzUnityAction() :
-	DzBridgeAction(tr("Daz To &Unity"), tr("Send the selected node to Unity."))
+DzPlaygroundsAction::DzPlaygroundsAction() :
+	DzBridgeAction(tr("&Playgrounds"), tr("Send the selected node to Playgrounds."))
 {
 	m_nNonInteractiveMode = 0;
 	m_sAssetType = QString("SkeletalMesh");
@@ -51,7 +52,7 @@ DzUnityAction::DzUnityAction() :
 
 }
 
-bool DzUnityAction::createUI()
+bool DzPlaygroundsAction::createUI()
 {
 	// Check if the main window has been created yet.
 	// If it hasn't, alert the user and exit early.
@@ -76,15 +77,15 @@ bool DzUnityAction::createUI()
 	 // Create the dialog
 	if (!m_bridgeDialog)
 	{
-		m_bridgeDialog = new DzUnityDialog(mw);
+		m_bridgeDialog = new DzPlaygroundsDialog(mw);
 	}
 	else
 	{
-		DzUnityDialog* unityDialog = qobject_cast<DzUnityDialog*>(m_bridgeDialog);
-		if (unityDialog)
+		DzPlaygroundsDialog* playgroundsDialog = qobject_cast<DzPlaygroundsDialog*>(m_bridgeDialog);
+		if (playgroundsDialog)
 		{
-			unityDialog->resetToDefaults();
-			unityDialog->loadSavedSettings();
+			playgroundsDialog->resetToDefaults();
+			playgroundsDialog->loadSavedSettings();
 		}
 	}
 
@@ -94,8 +95,17 @@ bool DzUnityAction::createUI()
 	return true;
 }
 
-void DzUnityAction::executeAction()
+void DzPlaygroundsAction::executeAction()
 {
+	// 2022-Mar-14 (DB): Apply G8-Tpose
+	DzContentMgr* contentMgr = dzApp->getContentMgr();
+	QString srcPath = ":/DazBridgePlaygrounds/g8-tpose.duf";
+	QString tempPath = dzApp->getTempPath() + "/" + "g8-tpose.duf";
+	QFile srcFile(srcPath);
+	this->copyFile(&srcFile, &tempPath, false);
+	// copy to temp folder
+	contentMgr->openFile(tempPath, true);
+
 	// CreateUI() disabled for debugging -- 2022-Feb-25
 	/*
 		 // Create and show the dialog. If the user cancels, exit early,
@@ -134,7 +144,7 @@ void DzUnityAction::executeAction()
 	// Create the dialog
 	if (m_bridgeDialog == nullptr)
 	{
-		m_bridgeDialog = new DzUnityDialog(mw);
+		m_bridgeDialog = new DzPlaygroundsDialog(mw);
 	}
 	else
 	{
@@ -184,15 +194,15 @@ void DzUnityAction::executeAction()
 	if (m_nNonInteractiveMode == 1 || dlgResult == QDialog::Accepted)
 	{
 		// DB 2021-10-11: Progress Bar
-		DzProgress* exportProgress = new DzProgress("Sending to Unity...", 10);
+		DzProgress* exportProgress = new DzProgress("Sending to Playgrounds...", 10);
 
 		// Read Common GUI values
 		readGui(m_bridgeDialog);
 
 		// Read Custom GUI values
-		DzUnityDialog* unityDialog = qobject_cast<DzUnityDialog*>(m_bridgeDialog);
-		if (unityDialog)
-			m_bInstallUnityFiles = unityDialog->installUnityFilesCheckBox->isChecked();
+		DzPlaygroundsDialog* playgroundsDialog = qobject_cast<DzPlaygroundsDialog*>(m_bridgeDialog);
+		if (playgroundsDialog)
+			m_bInstallUnityFiles = playgroundsDialog->installUnityFilesCheckBox->isChecked();
 		// custom animation filename correction for Unity
 		if (m_sAssetType == "Animation")
 		{
@@ -219,7 +229,7 @@ void DzUnityAction::executeAction()
 		// DB 2021-09-02: messagebox "Export Complete"
 		if (m_nNonInteractiveMode == 0)
 		{
-			QMessageBox::information(0, "DazBridge: Unity",
+			QMessageBox::information(0, "DazBridge: Playgrounds",
 				tr("Export phase from Daz Studio complete. Please switch to Unity to begin Import phase."), QMessageBox::Ok);
 			if (m_bInstallUnityFiles)
 			{
@@ -233,21 +243,21 @@ void DzUnityAction::executeAction()
 	}
 }
 
-QString DzUnityAction::createUnityFiles(bool replace)
+QString DzPlaygroundsAction::createUnityFiles(bool replace)
 {
 	if (!m_bInstallUnityFiles)
 		return "";
 
-	QString srcPath = ":/DazBridgeUnity/daztounity-hdrp.unitypackage";
+	QString srcPath = ":/DazBridgePlaygrounds/daztoplaygrounds.unitypackage";
 	QFile srcFile(srcPath);
-	QString destPath = m_sRootFolder + "/DazToUnity HDRP - Doubleclick to Install.unitypackage";
+	QString destPath = m_sRootFolder + "/DazToPlaygrounds - Doubleclick to Install.unitypackage";
 	this->copyFile(&srcFile, &destPath, replace);
 	srcFile.close();
 
 	return destPath;
 }
 
-void DzUnityAction::writeConfiguration()
+void DzPlaygroundsAction::writeConfiguration()
 {
 	QString DTUfilename = m_sDestinationPath + m_sAssetName + ".dtu";
 	QFile DTUfile(DTUfilename);
@@ -280,7 +290,7 @@ void DzUnityAction::writeConfiguration()
 }
 
 // Setup custom FBX export options
-void DzUnityAction::setExportOptions(DzFileIOSettings& ExportOptions)
+void DzPlaygroundsAction::setExportOptions(DzFileIOSettings& ExportOptions)
 {
 	ExportOptions.setBoolValue("doEmbed", false);
 	ExportOptions.setBoolValue("doDiffuseOpacity", false);
@@ -288,17 +298,17 @@ void DzUnityAction::setExportOptions(DzFileIOSettings& ExportOptions)
 
 }
 
-QString DzUnityAction::readGuiRootFolder()
+QString DzPlaygroundsAction::readGuiRootFolder()
 {
-	QString rootFolder = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation) + QDir::separator() + "DazToUnity";
+	QString rootFolder = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation) + QDir::separator() + "DazToPlaygrounds";
 
 	if (m_bridgeDialog)
 	{
 		QLineEdit* assetsFolderEdit = nullptr;
-		DzUnityDialog* unityDialog = qobject_cast<DzUnityDialog*>(m_bridgeDialog);
+		DzPlaygroundsDialog* playgroundsDialog = qobject_cast<DzPlaygroundsDialog*>(m_bridgeDialog);
 
-		if (unityDialog)
-			assetsFolderEdit = unityDialog->getAssetsFolderEdit();
+		if (playgroundsDialog)
+			assetsFolderEdit = playgroundsDialog->getAssetsFolderEdit();
 
 		if (assetsFolderEdit)
 			rootFolder = assetsFolderEdit->text().replace("\\", "/") + "/Daz3D";
@@ -306,4 +316,4 @@ QString DzUnityAction::readGuiRootFolder()
 	return rootFolder;
 }
 
-#include "moc_DzUnityAction.cpp"
+#include "moc_DzPlaygroundsAction.cpp"
