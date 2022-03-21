@@ -26,6 +26,7 @@
 #include "dzfacegroup.h"
 #include "dzprogress.h"
 #include "dzcontentmgr.h"
+#include "dzundostack.h"
 
 #include "DzPlaygroundsAction.h"
 #include "DzPlaygroundsDialog.h"
@@ -50,6 +51,44 @@ DzPlaygroundsAction::DzPlaygroundsAction() :
 	icon.addPixmap(basePixmap, QIcon::Normal, QIcon::Off);
 	QAction::setIcon(icon);
 
+	m_bUndoTPose = false;
+}
+
+bool DzPlaygroundsAction::preProcessScene(DzNode* parentNode)
+{
+	// 2022-Mar-14 (DB): Apply G8-Tpose
+	DzContentMgr* contentMgr = dzApp->getContentMgr();
+	QString srcPath = ":/DazBridgePlaygrounds/g8-tpose.duf";
+	QString tempPath = dzApp->getTempPath() + "/" + "g8-tpose.duf";
+	QFile srcFile(srcPath);
+	// copy to temp folder and merge tpose into scene
+	if (srcFile.exists())
+	{
+		if (this->copyFile(&srcFile, &tempPath, false))
+		{
+			if (contentMgr->openFile(tempPath, true))
+			{
+				m_bUndoTPose = true;
+			}
+		}
+	}
+
+	DzBridgeAction::preProcessScene(parentNode);
+
+	return false;
+}
+
+bool DzPlaygroundsAction::undoPreProcessScene()
+{
+	DzBridgeAction::undoPreProcessScene();
+
+	// undo the t-pose
+	if (m_bUndoTPose)
+	{
+		dzUndoStack->undo();
+	}
+
+	return false;
 }
 
 bool DzPlaygroundsAction::createUI()
@@ -97,15 +136,6 @@ bool DzPlaygroundsAction::createUI()
 
 void DzPlaygroundsAction::executeAction()
 {
-	// 2022-Mar-14 (DB): Apply G8-Tpose
-	DzContentMgr* contentMgr = dzApp->getContentMgr();
-	QString srcPath = ":/DazBridgePlaygrounds/g8-tpose.duf";
-	QString tempPath = dzApp->getTempPath() + "/" + "g8-tpose.duf";
-	QFile srcFile(srcPath);
-	this->copyFile(&srcFile, &tempPath, false);
-	// copy to temp folder
-	contentMgr->openFile(tempPath, true);
-
 	// CreateUI() disabled for debugging -- 2022-Feb-25
 	/*
 		 // Create and show the dialog. If the user cancels, exit early,

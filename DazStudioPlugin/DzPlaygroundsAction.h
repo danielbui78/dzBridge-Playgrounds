@@ -17,11 +17,17 @@ class DzPlaygroundsAction : public DZ_BRIDGE_NAMESPACE::DzBridgeAction {
 public:
 	DzPlaygroundsAction();
 
+	// Override DzBridgeAction: Pre-Process Scene data to workaround FbxExporter issues, called by Export() before FbxExport operation.
+	bool preProcessScene(DzNode* parentNode = nullptr);
+	// Override DzBridgeAction: Undo changes made by preProcessScene(), called by Export() after FbxExport operation.
+	bool undoPreProcessScene();
+
 	void setInstallUnityFiles(bool arg) { m_bInstallUnityFiles = arg; }
 	bool getInstallUnityFiles() { return m_bInstallUnityFiles; }
 
 protected:
 	 bool m_bInstallUnityFiles;
+	 bool m_bUndoTPose;
 
 	 void executeAction();
 	 Q_INVOKABLE bool createUI();

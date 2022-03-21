@@ -1,7 +1,7 @@
 {
 	"file_version" : "0.6.0.0",
 	"asset_info" : {
-		"id" : "/Presets/Poses/G8%20to%20Unity.duf",
+		"id" : "/Presets/Poses/G8%20to%20Unity%202.duf",
 		"type" : "preset_pose",
 		"contributor" : {
 			"author" : "Daniel Bui",
@@ -9,7 +9,7 @@
 			"website" : ""
 		},
 		"revision" : "1.0",
-		"modified" : "2022-03-14T16:38:03Z"
+		"modified" : "2022-03-19T00:29:23Z"
 	},
 	"scene" : {
 		"animations" : [
@@ -311,7 +311,7 @@
 			},
 			{
 				"url" : "name://@selection/lThumb3:?rotation/y/value",
-				"keys" : [ [ 0, 0 ] ]
+				"keys" : [ [ 0, 6.143652 ] ]
 			},
 			{
 				"url" : "name://@selection/lThumb3:?rotation/z/value",
@@ -351,7 +351,7 @@
 			},
 			{
 				"url" : "name://@selection/lThumb2:?rotation/y/value",
-				"keys" : [ [ 0, 0 ] ]
+				"keys" : [ [ 0, -15 ] ]
 			},
 			{
 				"url" : "name://@selection/lThumb2:?rotation/z/value",
@@ -671,7 +671,7 @@
 			},
 			{
 				"url" : "name://@selection/lMid1:?rotation/y/value",
-				"keys" : [ [ 0, 0 ] ]
+				"keys" : [ [ 0, 1.910411 ] ]
 			},
 			{
 				"url" : "name://@selection/lMid1:?rotation/z/value",
@@ -831,7 +831,7 @@
 			},
 			{
 				"url" : "name://@selection/lRing1:?rotation/y/value",
-				"keys" : [ [ 0, 0 ] ]
+				"keys" : [ [ 0, -2.392774 ] ]
 			},
 			{
 				"url" : "name://@selection/lRing1:?rotation/z/value",
@@ -991,7 +991,7 @@
 			},
 			{
 				"url" : "name://@selection/lPinky1:?rotation/y/value",
-				"keys" : [ [ 0, 0 ] ]
+				"keys" : [ [ 0, -6.160182 ] ]
 			},
 			{
 				"url" : "name://@selection/lPinky1:?rotation/z/value",
@@ -1071,7 +1071,7 @@
 			},
 			{
 				"url" : "name://@selection/lHand:?rotation/y/value",
-				"keys" : [ [ 0, 0 ] ]
+				"keys" : [ [ 0, -13.4348 ] ]
 			},
 			{
 				"url" : "name://@selection/lHand:?rotation/z/value",
@@ -1151,7 +1151,7 @@
 			},
 			{
 				"url" : "name://@selection/lForearmBend:?rotation/y/value",
-				"keys" : [ [ 0, 0 ] ]
+				"keys" : [ [ 0, 14.382 ] ]
 			},
 			{
 				"url" : "name://@selection/lForearmBend:?rotation/z/value",
@@ -1235,7 +1235,7 @@
 			},
 			{
 				"url" : "name://@selection/lShldrBend:?rotation/z/value",
-				"keys" : [ [ 0, 50.94503 ] ]
+				"keys" : [ [ 0, 47.69719 ] ]
 			},
 			{
 				"url" : "name://@selection/lShldrBend:?scale/general/value",
@@ -1311,7 +1311,7 @@
 			},
 			{
 				"url" : "name://@selection/rThumb3:?rotation/y/value",
-				"keys" : [ [ 0, 0 ] ]
+				"keys" : [ [ 0, -9.523786 ] ]
 			},
 			{
 				"url" : "name://@selection/rThumb3:?rotation/z/value",
@@ -1351,7 +1351,7 @@
 			},
 			{
 				"url" : "name://@selection/rThumb2:?rotation/y/value",
-				"keys" : [ [ 0, 0 ] ]
+				"keys" : [ [ 0, 15 ] ]
 			},
 			{
 				"url" : "name://@selection/rThumb2:?rotation/z/value",
@@ -1831,7 +1831,7 @@
 			},
 			{
 				"url" : "name://@selection/rRing1:?rotation/y/value",
-				"keys" : [ [ 0, 0 ] ]
+				"keys" : [ [ 0, 4.328229 ] ]
 			},
 			{
 				"url" : "name://@selection/rRing1:?rotation/z/value",
@@ -1991,7 +1991,7 @@
 			},
 			{
 				"url" : "name://@selection/rPinky1:?rotation/y/value",
-				"keys" : [ [ 0, 0 ] ]
+				"keys" : [ [ 0, 6.590485 ] ]
 			},
 			{
 				"url" : "name://@selection/rPinky1:?rotation/z/value",
@@ -2071,7 +2071,7 @@
 			},
 			{
 				"url" : "name://@selection/rHand:?rotation/y/value",
-				"keys" : [ [ 0, 0 ] ]
+				"keys" : [ [ 0, 9.60425 ] ]
 			},
 			{
 				"url" : "name://@selection/rHand:?rotation/z/value",
@@ -2151,7 +2151,7 @@
 			},
 			{
 				"url" : "name://@selection/rForearmBend:?rotation/y/value",
-				"keys" : [ [ 0, 0 ] ]
+				"keys" : [ [ 0, -14.30848 ] ]
 			},
 			{
 				"url" : "name://@selection/rForearmBend:?rotation/z/value",
