@@ -64,12 +64,14 @@ bool DzPlaygroundsAction::preProcessScene(DzNode* parentNode)
 	// copy to temp folder and merge tpose into scene
 	if (srcFile.exists())
 	{
-		if (this->copyFile(&srcFile, &tempPath, false))
+		this->copyFile(&srcFile, &tempPath, true);
+		if (contentMgr->openFile(tempPath, true))
 		{
-			if (contentMgr->openFile(tempPath, true))
-			{
-				m_bUndoTPose = true;
-			}
+			m_bUndoTPose = true;
+		}
+		else
+		{
+			m_bUndoTPose = false;
 		}
 	}
 
